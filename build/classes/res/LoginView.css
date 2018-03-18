@@ -1,0 +1,30 @@
+.root {
+    -fx-background-color: #D3D3D3;
+    
+    
+}
+
+#loginAnchorPane{
+    -fx-background-radius: 5px 5px 55px 55px;
+    -fx-border-radius: 5px 5px 50px 50px;
+    -fx-border-style: solid;
+    -fx-border-width: 3px;
+    
+}
+
+.jfx-text-field:focused, .jfx-password-field:focused {
+    -fx-text-fill: black;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+.jfx-button {
+    -fx-text-fill: black;
+}
+.jfx-button:hover {
+    -fx-border-color:  black;
+    -fx-border-radius: 50px;
+    -fx-background-radius:  50px;
+}
