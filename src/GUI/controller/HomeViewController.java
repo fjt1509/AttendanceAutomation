@@ -7,10 +7,13 @@ package GUI.controller;
 
 import com.jfoenix.controls.JFXButton;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -20,6 +23,10 @@ import javafx.scene.image.ImageView;
  */
 public class HomeViewController implements Initializable
 {
+    
+    private Date date = new Date();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    
 
     @FXML
     private JFXButton submitBtn;
@@ -42,7 +49,9 @@ public class HomeViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        easvLogo.setImage(new Image(getClass().getResourceAsStream("/res/easvlogo.png")));
+        dateLbl.setText("Current date: " + sdf.format(date)); 
+        welcomeLbl.setText(firstName);
     }    
     
 }
