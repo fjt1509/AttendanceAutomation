@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111" fx:controller="GUI.controller.HomeViewController">
+   <children>
+      <JFXButton fx:id="SubmitBtn" buttonType="RAISED" layoutX="208.0" layoutY="209.0" prefHeight="54.0" prefWidth="184.0" text="Submit attendance">
+         <ripplerFill>
+            <LinearGradient endX="1.0" endY="1.0" proportional="false">
+               <stops>
+                  <Stop color="#3867c2" />
+                  <Stop color="#3867c2" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </ripplerFill>
+      </JFXButton>
+      <Label fx:id="welcomeLbl" layoutX="235.0" layoutY="115.0" prefHeight="10.0" prefWidth="107.0" text="Welcome *name*" />
+      <JFXButton fx:id="detailsBtn" buttonType="RAISED" layoutX="208.0" layoutY="263.0" prefHeight="54.0" prefWidth="184.0" text="Attendance details">
+         <ripplerFill>
+            <LinearGradient endX="1.0" endY="1.0" proportional="false">
+               <stops>
+                  <Stop color="#3867c2" />
+                  <Stop color="#3867c2" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </ripplerFill>
+      </JFXButton>
+      <Label fx:id="registerSuccesfulLbl" alignment="CENTER" layoutX="177.0" layoutY="158.0" prefHeight="17.0" prefWidth="260.0" text="Registration Succesful" textAlignment="CENTER" textFill="#75da47">
+         <font>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
