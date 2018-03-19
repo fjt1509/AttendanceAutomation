@@ -1,7 +1,5 @@
 .root {
-    -fx-background-color: #D3D3D3;
-    
-    
+    -fx-background-color: #D3D3D3;   
 }
 
 #loginAnchorPane{
@@ -14,6 +12,10 @@
 
 .jfx-text-field:focused, .jfx-password-field:focused {
     -fx-text-fill: black;
+}
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill:  #262626;
+    
 }
 
 .label {
