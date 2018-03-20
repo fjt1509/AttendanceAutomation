@@ -34,7 +34,20 @@ public class UserDAO {
             }
     }
 
-    public boolean login(String username, String password) throws SQLException 
+    public boolean login(String username, String password)
+    {    
+        if(loginVerification(username, password))
+        {
+            System.out.println("you've logged in");
+            return true;
+
+        }
+
+          
+        return false;
+    }
+
+    private boolean loginVerification(String username, String password) 
     {
         try (Connection con = dbConnector.getConnection()) 
         {
@@ -49,10 +62,13 @@ public class UserDAO {
             
             while(rs.next())
             {
-                System.out.println("you've logged in");
+                return true;
             }
-
         }   
+        catch (SQLException ex)     
+        {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);    
+        }
         return false;
     }
     

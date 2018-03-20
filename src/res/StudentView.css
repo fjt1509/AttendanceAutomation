@@ -1,0 +1,9 @@
+.root {
+    -fx-background-color:  #e6e6e6;
+}
+
+#toolAnchorPane {
+    -fx-background-color:  #A52A2A;
+    -fx-background-radius: 0px 0px 40px 40px;
+ 
+}
