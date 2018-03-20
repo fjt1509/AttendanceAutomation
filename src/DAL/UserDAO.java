@@ -26,8 +26,7 @@ public class UserDAO {
 
     public UserDAO() 
     {
-            try 
-            {
+            try {
                 dbConnector = new DataBaseConnector();
             } catch (IOException ex) 
             {
@@ -35,9 +34,26 @@ public class UserDAO {
             }
     }
 
-    public boolean login(String username, String password) 
+    public boolean login(String username, String password) throws SQLException 
     {
-       return false; 
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql = "SELECT * FROM Users WHERE username = ? AND password = ?"; 
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+
+            statement.setString(1, username);
+            statement.setString(2, password);
+            
+            ResultSet rs = statement.executeQuery();
+            
+            while(rs.next())
+            {
+                System.out.println("you've logged in");
+            }
+
+        }   
+        return false;
     }
     
     

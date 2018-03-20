@@ -30,6 +30,7 @@ public class LoginAttendanceTest extends Application {
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
+        stage.setTitle("Attendance Automation EASV");
     }
 
     /**

@@ -6,8 +6,7 @@
     -fx-background-radius: 5px 5px 55px 55px;
     -fx-border-radius: 5px 5px 50px 50px;
     -fx-border-style: solid;
-    -fx-border-width: 3px;
-    
+    -fx-border-width: 3px;    
 }
 
 .jfx-text-field:focused, .jfx-password-field:focused {
@@ -20,6 +19,7 @@
 
 .label {
     -fx-text-fill: black;
+   
 }
 
 .jfx-button {
