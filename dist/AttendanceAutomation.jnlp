@@ -8,11 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-<<<<<<< HEAD
-    <jar href="AttendanceAutomation.jar" size="1616978" download="eager" />
-=======
-    <jar href="AttendanceAutomation.jar" size="1618226" download="eager" />
->>>>>>> d1ba9017e88837621336257671718d6dc3efac41
+    <jar href="AttendanceAutomation.jar" size="1627487" download="eager" />
     <jar href="lib\jfoenix-8.0.1.jar" size="2405715" download="eager" />
     <jar href="lib\sqljdbc42.jar" size="891490" download="eager" />
   </resources>

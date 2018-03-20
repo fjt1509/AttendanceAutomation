@@ -51,7 +51,7 @@ public class HomeViewController implements Initializable
     {
         easvLogo.setImage(new Image(getClass().getResourceAsStream("/res/easvlogo.png")));
         dateLbl.setText("Current date: " + sdf.format(date)); 
-        welcomeLbl.setText(firstName);
+        //welcomeLbl.setText();
     }    
     
 }
