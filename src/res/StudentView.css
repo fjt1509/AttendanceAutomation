@@ -7,3 +7,7 @@
     -fx-background-radius: 0px 0px 40px 40px;
  
 }
+
+.label {
+    -fx-text-fill: black;
+}
