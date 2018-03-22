@@ -20,6 +20,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -70,8 +72,10 @@ public class LoginViewController implements Initializable {
             {   
                 if(roles.equals("Teacher"))
                 {
+                    /*
                     try 
                     {
+                        
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/TeacherView.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Stage stage = new Stage();
@@ -83,10 +87,16 @@ public class LoginViewController implements Initializable {
                         } catch (IOException ex) 
                         {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        }*/
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText("You've logged in as a Teacher ");
+                    alert.setContentText("You have logged in as a Teacher");
+                    alert.showAndWait();
+                    loginErrorLbl.setText("");
                 }  
                 else if (roles.equals("Student"))
-                {
+                {/*
                     try 
                     {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/StudentView.fxml"));
@@ -100,7 +110,14 @@ public class LoginViewController implements Initializable {
                     } catch (IOException ex) 
                     {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    }*/
+                    Alert alert = new Alert(AlertType.INFORMATION);
+                    alert.setTitle("Information Dialog");
+                    alert.setHeaderText("You've logged in as a Student ");
+                    alert.setContentText("You have logged in as a Student");
+                    alert.showAndWait();
+                    loginErrorLbl.setText("");
+                    
                 }
             }
         }
