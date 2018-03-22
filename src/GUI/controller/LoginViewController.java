@@ -5,6 +5,7 @@
  */
 package GUI.controller;
 
+import BE.User;
 import GUI.model.Model;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -44,6 +45,8 @@ public class LoginViewController implements Initializable {
     private JFXPasswordField passTxtfield;
     
     private Model model = new Model();
+    @FXML
+    private Label loginErrorLbl;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -59,25 +62,52 @@ public class LoginViewController implements Initializable {
         String username = userTxtfield.getText();
         String password = passTxtfield.getText();
         
-       if(model.login(username, password))
-       {
-            try 
-            {
-                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/StudentView.fxml"));
-                Parent root = (Parent) fxmlLoader.load();
-                Stage stage = new Stage();
-                Scene scene = new Scene(root);
-                scene.getStylesheets().add("res/StudentView.css");
-                stage.setScene(scene);
-                
-                stage.show();
-            } 
-            catch (IOException ex) 
-            {
-                Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+        User currentUser = model.login(username, password);
+        
+        if(currentUser != null)
+        {
+            for (String roles : currentUser.getRoles()) 
+            {   
+                if(roles.equals("Teacher"))
+                {
+                    try 
+                    {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/TeacherView.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        Stage stage = new Stage();
+                        Scene scene = new Scene(root);
+                        scene.getStylesheets().add("res/TeacherView.css");
+                        stage.setScene(scene);
+                    
+                        stage.show();
+                        } catch (IOException ex) 
+                        {
+                        Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                }  
+                else if (roles.equals("Student"))
+                {
+                    try 
+                    {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/StudentView.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        Stage stage = new Stage();
+                        Scene scene = new Scene(root);
+                        scene.getStylesheets().add("res/StudentView.css");
+                        stage.setScene(scene);
+                    
+                        stage.show();
+                    } catch (IOException ex) 
+                    {
+                        Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
             }
-       }
+        }
+        else
+        {
+            loginErrorLbl.setText("*Wrong Username or Password");
+        }
         
     }
-    
 }

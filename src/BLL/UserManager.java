@@ -5,6 +5,7 @@
  */
 package BLL;
 
+import BE.User;
 import DAL.UserDAO;
 
 /**
@@ -15,7 +16,7 @@ public class UserManager {
     
     private UserDAO userdao = new UserDAO();
 
-    public boolean login(String username, String password) 
+    public User login(String username, String password) 
     {
         return userdao.login(username, password);
     }

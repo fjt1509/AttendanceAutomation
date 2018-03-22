@@ -5,6 +5,8 @@
  */
 package DAL;
 
+import BE.User;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,20 +36,8 @@ public class UserDAO {
             }
     }
 
-    public boolean login(String username, String password)
-    {    
-        if(loginVerification(username, password))
-        {
-            System.out.println("you've logged in");
-            return true;
 
-        }
-
-          
-        return false;
-    }
-
-    private boolean loginVerification(String username, String password) 
+    public User login(String username, String password) 
     {
         try (Connection con = dbConnector.getConnection()) 
         {
@@ -62,15 +52,51 @@ public class UserDAO {
             
             while(rs.next())
             {
-                return true;
+                int id = rs.getInt("id");
+                String fname = rs.getString("fname");
+                String lname = rs.getString("lname");
+                String email = rs.getString("email");
+                List<String> roles = getUserRoles(id);
+                
+                User user = new User(id, fname, lname, email, roles);
+                return user;
             }
         }   
         catch (SQLException ex)     
         {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);    
         }
-        return false;
+        return null;
     }
-    
+
+    private List<String> getUserRoles(int id) 
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql = "SELECT r.position\n" +
+                         "FROM Users u join UserRole ur on u.id = ur.userId\n" +
+                         "join Roles r on ur.roleId = r.id\n" +
+                         "WHERE u.id = ?";   
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, id);
+            
+            ResultSet rs = statement.executeQuery();
+            List<String> roles = new ArrayList<>();
+            
+            while(rs.next())
+            {
+                roles.add(rs.getString("position"));
+            }
+        return roles;                           
+        }       
+        catch (SQLException ex) 
+        {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+       
+    }
     
 }

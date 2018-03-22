@@ -5,6 +5,7 @@
  */
 package GUI.model;
 
+import BE.User;
 import BLL.UserManager;
 
 /**
@@ -16,7 +17,7 @@ public class Model
     
     private UserManager usermanager = new UserManager();
     
-    public boolean login(String username, String password) 
+    public User login(String username, String password) 
     {
         return usermanager.login(username, password);
     }
