@@ -5,8 +5,11 @@
  */
 package GUI.model;
 
+import BE.Registration;
 import BE.User;
+import BLL.RegistrationManager;
 import BLL.UserManager;
+import java.util.Date;
 
 /**
  *
@@ -16,11 +19,22 @@ public class Model
 {
     
     private UserManager usermanager = new UserManager();
+    private RegistrationManager registrationManager = new RegistrationManager();
     
     public User login(String username, String password) 
     {
         return usermanager.login(username, password);
     }
+
+
+    
+    public void register(int userID, int courseID, Date date, int isPresent)
+    {
+        registrationManager.register(userID, courseID, date, isPresent);
+        
+    
+    }
+    
     
     
 }
