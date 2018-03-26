@@ -23,12 +23,11 @@ public class LoginAttendanceTest extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/LoginView.fxml"));
-                Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/HomeView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/view/LoginView.fxml"));
+                
 
         Scene scene = new Scene(root);
-        //scene.getStylesheets().add("/res/LoginView.css");
-        scene.getStylesheets().add("/res/HomeView.css");
+        scene.getStylesheets().add("/res/LoginView.css");
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();

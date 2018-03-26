@@ -96,21 +96,21 @@ public class LoginViewController implements Initializable {
                     loginErrorLbl.setText("");
                 }  
                 else if (roles.equals("Student"))
-                {/*
+                {
                     try 
                     {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/StudentView.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/HomeView.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Stage stage = new Stage();
                         Scene scene = new Scene(root);
-                        scene.getStylesheets().add("res/StudentView.css");
+                        scene.getStylesheets().add("res/HomeView.css");
                         stage.setScene(scene);
                     
                         stage.show();
                     } catch (IOException ex) 
                     {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }*/
+                    }
                     Alert alert = new Alert(AlertType.INFORMATION);
                     alert.setTitle("Information Dialog");
                     alert.setHeaderText("You've logged in as a Student ");
