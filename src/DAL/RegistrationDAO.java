@@ -14,7 +14,7 @@ import java.util.Date;
 public class RegistrationDAO
 {
 
-    public void register(int userID, int courseID, Date date, int isPresent)
+    public void register(int userID, Date date, int isPresent)
     {
         System.out.println("I made it");
     }

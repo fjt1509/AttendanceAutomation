@@ -65,14 +65,14 @@ public class LoginViewController implements Initializable {
         String password = passTxtfield.getText();
         
         User currentUser = model.login(username, password);
+    
         
         if(currentUser != null)
         {
             for (String roles : currentUser.getRoles()) 
             {   
                 if(roles.equals("Teacher"))
-                {
-                    /*
+                { 
                     try 
                     {
                         
@@ -84,41 +84,35 @@ public class LoginViewController implements Initializable {
                         stage.setScene(scene);
                     
                         stage.show();
-                        } catch (IOException ex) 
-                        {
+                        } 
+                    catch (IOException ex) 
+                    {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                        }*/
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText("You've logged in as a Teacher ");
-                    alert.setContentText("You have logged in as a Teacher");
-                    alert.showAndWait();
-                    loginErrorLbl.setText("");
-                }  
-                else if (roles.equals("Student"))
-                {/*
+                    }  
+                }
+                if (roles.equals("Student"))
+                {
                     try 
                     {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/StudentView.fxml"));
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/HomeView.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
                         Stage stage = new Stage();
+                        HomeViewController hvc = fxmlLoader.getController();
+                        hvc.setModel(model);
+                        hvc.setUser(currentUser);
                         Scene scene = new Scene(root);
-                        scene.getStylesheets().add("res/StudentView.css");
+                        scene.getStylesheets().add("res/HomeView.css");
                         stage.setScene(scene);
                     
                         stage.show();
                     } catch (IOException ex) 
                     {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }*/
-                    Alert alert = new Alert(AlertType.INFORMATION);
-                    alert.setTitle("Information Dialog");
-                    alert.setHeaderText("You've logged in as a Student ");
-                    alert.setContentText("You have logged in as a Student");
-                    alert.showAndWait();
-                    loginErrorLbl.setText("");
+                    }
+
                     
                 }
+            
             }
         }
         else
@@ -126,5 +120,6 @@ public class LoginViewController implements Initializable {
             loginErrorLbl.setText("*Wrong Username or Password");
         }
         
-    }
+    
+}
 }

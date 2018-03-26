@@ -17,9 +17,11 @@ public class RegistrationManager
 
     RegistrationDAO registrationDAO = new RegistrationDAO();
     
-    public void register(int userID, int courseID, Date date, int isPresent)
+    public void register(int userID, Date date, int isPresent)
     {
-        registrationDAO.register(userID, courseID, date, isPresent);
+        registrationDAO.register(userID, date, isPresent);
     }
+
+
     
 }

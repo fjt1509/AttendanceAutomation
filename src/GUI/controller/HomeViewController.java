@@ -51,7 +51,7 @@ public class HomeViewController implements Initializable
     private Label notYetRegisteredlbl;
     
     
-    Model model = new Model();
+    Model model;
     LoginViewController loginViewController = new LoginViewController();
     User user;
     Course course;
@@ -78,14 +78,24 @@ public class HomeViewController implements Initializable
         
         
         int userID = user.getId();
-        int courseID = course.getId();
+      //  int courseID = course.getId();
         Date date = sdf.get2DigitYearStart();
         int isPresent = 1;
         
-        model.register(userID, courseID, date, isPresent);
+        model.register(userID, date, isPresent);
         
         
         
+    }
+
+    void setModel(Model model) 
+    {
+        this.model = model;
+    }
+
+    void setUser(User currentUser) 
+    {
+        this.user = currentUser;
     }
     
 }

@@ -28,13 +28,14 @@ public class Model
 
 
     
-    public void register(int userID, int courseID, Date date, int isPresent)
+    public void register(int userID, Date date, int isPresent)
     {
-        registrationManager.register(userID, courseID, date, isPresent);
+        registrationManager.register(userID, date, isPresent);
         
     
     }
-    
+
+  
     
     
 }
