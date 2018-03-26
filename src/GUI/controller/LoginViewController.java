@@ -89,8 +89,8 @@ public class LoginViewController implements Initializable {
                     {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
                     }  
-                }
-                if (roles.equals("Student"))
+                }           
+                else if (roles.equals("Student"))
                 {
                     try 
                     {
@@ -108,9 +108,7 @@ public class LoginViewController implements Initializable {
                     } catch (IOException ex) 
                     {
                         Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-
-                    
+                    }                   
                 }
             
             }
