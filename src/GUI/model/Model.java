@@ -5,11 +5,10 @@
  */
 package GUI.model;
 
-import BE.Registration;
 import BE.User;
-import BLL.RegistrationManager;
 import BLL.UserManager;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -17,23 +16,40 @@ import java.util.Date;
  */
 public class Model 
 {
+    private static Model model = new Model();
     
+    private User currentUser;
     private UserManager usermanager = new UserManager();
-    private RegistrationManager registrationManager = new RegistrationManager();
+    
+    
+    private Model(){}
+    
+    public static Model getInstance()
+    {
+        return model;
+    }
+    
     
     public User login(String username, String password) 
     {
-        return usermanager.login(username, password);
+        currentUser = usermanager.login(username, password);
+        return currentUser;
     }
 
-
-    
-    public void register(int userID, Date date, int isPresent)
+    public User getCurrentUser() 
     {
-        registrationManager.register(userID, date, isPresent);
-        
-    
+        return currentUser;
     }
+    public void logoutUser()
+    {
+        currentUser = null;
+    }
+
+    public List<String> getClassesToday(User currentUser, String currentDate) 
+    {
+        return usermanager.getClassesToday(currentUser, currentDate);
+    }
+    
 
   
     

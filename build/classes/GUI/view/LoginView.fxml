@@ -11,9 +11,9 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="-Infinity" prefWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.LoginViewController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.LoginViewController">
    <children>
-      <ImageView fx:id="backgroundImage" fitHeight="-Infinity" fitWidth="-Infinity" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-62.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-31.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="backgroundImage" fitHeight="685.0" fitWidth="977.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-177.0" AnchorPane.topAnchor="0.0">
          <effect>
             <Blend />
          </effect>
@@ -21,7 +21,7 @@
       <AnchorPane fx:id="loginAnchorPane" layoutX="225.0" prefHeight="420.0" prefWidth="350.0" style="-fx-background-color: #A52A2A;">
          <children>
             <ImageView fx:id="easvLogoImage" fitHeight="102.0" fitWidth="102.0" layoutX="124.0" layoutY="-18.0" pickOnBounds="true" preserveRatio="true" />
-            <JFXButton layoutX="83.0" layoutY="336.0" onAction="#loginEvent" prefHeight="54.0" prefWidth="184.0" text="Login">
+            <JFXButton fx:id="loginBtn" layoutX="83.0" layoutY="336.0" onAction="#loginEvent" prefHeight="54.0" prefWidth="184.0" text="Login">
                <font>
                   <Font size="25.0" />
                </font>

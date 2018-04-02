@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.RadialGradient?>
+<?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.StudentViewController">
@@ -14,17 +17,62 @@
             <AnchorPane fx:id="toolAnchorPane" prefHeight="100.0" prefWidth="790.0">
                <children>
                   <ImageView fx:id="easvLogoImage" fitHeight="102.0" fitWidth="102.0" layoutX="344.0" pickOnBounds="true" preserveRatio="true" />
-                  <FontAwesomeIconView glyphName="COG" layoutX="31.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
-                  <FontAwesomeIconView glyphName="USER" layoutX="87.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
-                  <FontAwesomeIconView glyphName="BAR_CHART" layoutX="141.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
-                  <Label fx:id="dateLbl" alignment="CENTER" layoutX="581.0" layoutY="29.0" prefHeight="44.0" prefWidth="184.0">
+                  <FontAwesomeIconView fx:id="userIcon" glyphName="USER" layoutX="41.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
+                  <FontAwesomeIconView fx:id="absenceIcon" glyphName="BAR_CHART" layoutX="91.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
+                  <Label fx:id="timeLbl" layoutX="682.0" layoutY="24.0" prefHeight="51.0" prefWidth="80.0" text="6:40">
                      <font>
-                        <Font name="System Bold" size="25.0" />
+                        <Font size="37.0" />
                      </font>
                   </Label>
                </children>
             </AnchorPane>
          </children>
       </HBox>
+      <Label fx:id="dateLbl" alignment="CENTER" layoutX="257.0" layoutY="146.0" prefHeight="44.0" prefWidth="324.0">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="presentBtn" layoutX="257.0" layoutY="397.0" onAction="#presentEvent" prefHeight="64.0" prefWidth="145.0" text="Present">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <ripplerFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="#5cda67" />
+                  <Stop color="#5cda67" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </ripplerFill>
+      </JFXButton>
+      <Label fx:id="currentStatusLbl" alignment="CENTER" layoutX="257.0" layoutY="322.0" prefHeight="44.0" prefWidth="324.0">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="absentBtn" layoutX="436.0" layoutY="397.0" onAction="#absentEvent" prefHeight="64.0" prefWidth="145.0" text="Absent">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <ripplerFill>
+            <RadialGradient centerX="0.5" centerY="0.5" radius="0.5">
+               <stops>
+                  <Stop color="#c23636" />
+                  <Stop color="#c23636" offset="1.0" />
+               </stops>
+            </RadialGradient>
+         </ripplerFill>
+      </JFXButton>
+      <Label alignment="CENTER" layoutX="257.0" layoutY="204.0" prefHeight="44.0" prefWidth="324.0" text="Classes Today:">
+         <font>
+            <Font name="System Bold" size="21.0" />
+         </font>
+      </Label>
+      <Label fx:id="currentClassesLbl" alignment="CENTER" layoutX="200.0" layoutY="241.0" prefHeight="44.0" prefWidth="439.0">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

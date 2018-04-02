@@ -98,5 +98,37 @@ public class UserDAO {
         return null;
        
     }
-    
+
+    public List<String> getClassesToday(User currentUser, String currentDate) 
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql = "SELECT c.name\n" +
+                         "FROM Users u join ClassUser cu on u.id = cu.userId \n" +
+                         "              join Class cl on cu.classId = cl.id\n" +
+                         "              join ClassCourse cc on cl.id = cc.classId\n" +
+                         "              join Course c on cc.courseId = c.id\n" +
+                         "WHERE u.id = ? AND cc.dayOfWeek = ?";   
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1,currentUser.getId());
+            statement.setString(2, currentDate);
+            
+            ResultSet rs = statement.executeQuery();
+            List<String> classesToday = new ArrayList<>();  
+            
+            while(rs.next())
+            {
+                classesToday.add(rs.getString("name"));
+            }
+            return classesToday;
+        
+        }       
+        catch (SQLException ex) 
+        {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

@@ -18,7 +18,7 @@ public class User implements Serializable
     private String fname;
     private String lname;
     private String email;
-    private List<String> roles;
+    private final List<String> roles;
     
     
     public User (int id, String fname, String lname, String email, List<String> roles)

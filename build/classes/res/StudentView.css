@@ -11,3 +11,21 @@
 .label {
     -fx-text-fill: black;
 }
+
+#userIcon:hover ,#absenceIcon:hover {
+    -fx-fill: White;
+}
+
+.jfx-button {
+    -fx-text-fill: black;
+}
+#presentBtn:hover {
+    -fx-border-color:  #5cda67;
+    -fx-border-radius: 50px;
+    -fx-background-radius:  50px;
+}
+#absentBtn:hover {
+    -fx-border-color:  #c23636;
+    -fx-border-radius: 50px;
+    -fx-background-radius:  50px;
+}

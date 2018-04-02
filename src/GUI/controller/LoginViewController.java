@@ -7,6 +7,7 @@ package GUI.controller;
 
 import BE.User;
 import GUI.model.Model;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
@@ -45,10 +46,18 @@ public class LoginViewController implements Initializable {
     private JFXTextField userTxtfield;
     @FXML
     private JFXPasswordField passTxtfield;
-    
-    private Model model = new Model();
     @FXML
     private Label loginErrorLbl;
+    @FXML
+    private JFXButton loginBtn;  
+    
+    private Model model = Model.getInstance();
+    
+    private String nextView;
+    private String style;
+    
+
+
     
     @Override
     public void initialize(URL url, ResourceBundle rb) 
@@ -65,6 +74,7 @@ public class LoginViewController implements Initializable {
         String password = passTxtfield.getText();
         
         User currentUser = model.login(username, password);
+       
     
         
         if(currentUser != null)
@@ -73,42 +83,19 @@ public class LoginViewController implements Initializable {
             {   
                 if(roles.equals("Teacher"))
                 { 
-                    try 
-                    {
-                        
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/TeacherView.fxml"));
-                        Parent root = (Parent) fxmlLoader.load();
-                        Stage stage = new Stage();
-                        Scene scene = new Scene(root);
-                        scene.getStylesheets().add("res/TeacherView.css");
-                        stage.setScene(scene);
-                    
-                        stage.show();
-                        } 
-                    catch (IOException ex) 
-                    {
-                        Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }  
+                    nextView = "/GUI/view/TeacherView.fxml";
+                    style = "res/TeacherView.css";
+                    loadNextView();
+                    Stage stage = (Stage) loginBtn.getScene().getWindow();
+                    stage.close();
                 }           
                 else if (roles.equals("Student"))
                 {
-                    try 
-                    {
-                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GUI/view/HomeView.fxml"));
-                        Parent root = (Parent) fxmlLoader.load();
-                        Stage stage = new Stage();
-                        HomeViewController hvc = fxmlLoader.getController();
-                        hvc.setModel(model);
-                        hvc.setUser(currentUser);
-                        Scene scene = new Scene(root);
-                        scene.getStylesheets().add("res/HomeView.css");
-                        stage.setScene(scene);
-                    
-                        stage.show();
-                    } catch (IOException ex) 
-                    {
-                        Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
-                    }                   
+                    nextView = "/GUI/view/StudentView.fxml";
+                    style = "res/StudentView.css";
+                    loadNextView();    
+                    Stage stage  = (Stage) loginBtn.getScene().getWindow();
+                    stage.close();
                 }
             
             }
@@ -116,8 +103,23 @@ public class LoginViewController implements Initializable {
         else
         {
             loginErrorLbl.setText("*Wrong Username or Password");
-        }
-        
+        }    
+    }
     
-}
+    private void loadNextView()
+    {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(nextView));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            scene.getStylesheets().add(style);
+            stage.setScene(scene);
+                    
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(LoginViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+            
 }

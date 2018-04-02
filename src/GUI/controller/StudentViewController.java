@@ -5,15 +5,32 @@
  */
 package GUI.controller;
 
+import BE.User;
+import GUI.model.Model;
+import com.jfoenix.controls.JFXButton;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
+import java.text.DateFormatSymbols;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Formatter;
+import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -27,11 +44,36 @@ public class StudentViewController implements Initializable {
     private AnchorPane toolAnchorPane;
     @FXML
     private ImageView easvLogoImage;
-
-    private Date date = new Date();
-    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     @FXML
     private Label dateLbl;
+    @FXML
+    private FontAwesomeIconView userIcon;
+    @FXML
+    private FontAwesomeIconView absenceIcon;    
+    @FXML
+    private Label timeLbl;
+    @FXML
+    private Label currentStatusLbl; 
+     @FXML
+    private JFXButton presentBtn;
+    @FXML
+    private JFXButton absentBtn;
+    @FXML
+    private Label currentClassesLbl; 
+    
+    private Model model = Model.getInstance();
+
+    private String currentWeekDay;
+    private List<String> classesToday;
+   
+    
+    private Date date = new Date();
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+ 
+
+
+
+
     
     /**
      * Initializes the controller class.
@@ -40,8 +82,103 @@ public class StudentViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) 
     {
         easvLogoImage.setImage(new Image(getClass().getResourceAsStream("/res/easv.png")));
-        dateLbl.setText(sdf.format(date));
+        dateLbl.setText("Todays date: " + sdf.format(date));
         
+        displayTime();
+        currentStatusLbl.setText("Status:  Unattended");
+        currentWeekDay = getcurrentWeekDay();
+        classesToday = model.getClassesToday(model.getCurrentUser(), currentWeekDay);
+        String allClasses = String.join(", ", classesToday);
+        currentClassesLbl.setText(allClasses);
+        System.out.println(getCurrentWeekOfYear());
+
+
     }    
+
+    private void displayTime() 
+    {
+   
+    }
+
+    @FXML
+    private void presentEvent(ActionEvent event) 
+    {
+        if(checkIfValidTimePeriod())
+        {
+           // model.registerPresentAttendance(model.getCurrentUser(), currentWeekDay);
+        }
+        else
+        {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Timeperiod error");
+            alert.setHeaderText("Unable to register attendacne due to invalid time period");
+            alert.setContentText("You can only register attendance during the hours 08:15 - 16:00");
+
+            alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void absentEvent(ActionEvent event) 
+    {
+        
+    
+    }
+    
+    private boolean checkIfValidTimePeriod() 
+    {
+        try 
+        {
+            String string1 = "08:15:00";
+            Date time1 = new SimpleDateFormat("HH:mm:ss").parse(string1);
+            Calendar calendar1 = Calendar.getInstance();
+            calendar1.setTime(time1);
+
+            String string2 = "16:00:00";
+            Date time2 = new SimpleDateFormat("HH:mm:ss").parse(string2);
+            Calendar calendar2 = Calendar.getInstance();
+            calendar2.setTime(time2);
+            calendar2.add(Calendar.DATE, 1);
+            
+            
+            Date currentDate = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+            String currentTime = sdf.format(currentDate);
+            
+            Date d = new SimpleDateFormat("HH:mm:ss").parse(currentTime);
+            Calendar calendar3 = Calendar.getInstance();
+            calendar3.setTime(d);
+            calendar3.add(Calendar.DATE, 1);
+
+            Date x = calendar3.getTime();
+            if (x.after(calendar1.getTime()) && x.before(calendar2.getTime())) 
+            {
+                return true;               
+            }
+
+        } 
+        catch (ParseException e) 
+        {
+            e.printStackTrace();
+        }    
+        return false;
+    }
+
+
+    private String getcurrentWeekDay() 
+    {
+        String[] dayNames = {"Saturday","Sunday","Monday","Tuesday","Wednesday","Thursday","Friday"};
+        Calendar date2 = Calendar.getInstance();
+        return dayNames[date2.get(Calendar.DAY_OF_WEEK)];
+    }
+    
+    private int getCurrentWeekOfYear()
+    {
+        LocalDate date = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        return date.get(weekFields.weekOfWeekBasedYear());
+    }
+    
+
     
 }

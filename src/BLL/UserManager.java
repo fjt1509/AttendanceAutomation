@@ -7,6 +7,7 @@ package BLL;
 
 import BE.User;
 import DAL.UserDAO;
+import java.util.List;
 
 /**
  *
@@ -19,6 +20,11 @@ public class UserManager {
     public User login(String username, String password) 
     {
         return userdao.login(username, password);
+    }
+
+    public List<String> getClassesToday(User currentUser, String currentDate) 
+    {
+        return userdao.getClassesToday(currentUser, currentDate);
     }
     
 }
