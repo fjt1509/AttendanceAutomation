@@ -5,6 +5,7 @@
  */
 package DAL;
 
+import BE.Course;
 import BE.User;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import java.io.IOException;
@@ -99,11 +100,11 @@ public class UserDAO {
        
     }
 
-    public List<String> getClassesToday(User currentUser, String currentDate) 
+    public List<Course> getClassesToday(User currentUser, String currentDate) 
     {
         try (Connection con = dbConnector.getConnection()) 
         {
-            String sql = "SELECT c.name\n" +
+            String sql = "SELECT c.id, c.name, c.semester\n" +
                          "FROM Users u join ClassUser cu on u.id = cu.userId \n" +
                          "              join Class cl on cu.classId = cl.id\n" +
                          "              join ClassCourse cc on cl.id = cc.classId\n" +
@@ -116,11 +117,18 @@ public class UserDAO {
             statement.setString(2, currentDate);
             
             ResultSet rs = statement.executeQuery();
-            List<String> classesToday = new ArrayList<>();  
+            List<Course> classesToday = new ArrayList<>();  
             
             while(rs.next())
             {
-                classesToday.add(rs.getString("name"));
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int semester = rs.getInt("semester");
+                
+                Course c = new Course(id, name, semester);
+                
+                classesToday.add(c);
+                
             }
             return classesToday;
         
@@ -130,5 +138,59 @@ public class UserDAO {
                 Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public void registerPresent(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql = "INSERT INTO Attendance VALUES (?, ?, ?, ?, ?)";
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, courseId);
+            statement.setInt(2, userId);
+            statement.setString(3, date);
+            statement.setBoolean(4, attending);
+            statement.setInt(5, currentWeekOfYear);
+            
+            statement.executeUpdate();
+        }   
+        catch (SQLException ex) 
+        {        
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+
+    public Boolean getTodaysAttendanceStatus(int userId, String date) 
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+           String sql ="SELECT attending\n" +
+                        "FROM Attendance\n" +
+                        "WHERE userId = ? AND date = ?";
+           
+           PreparedStatement statement = con.prepareStatement(sql);
+           
+           statement.setInt(1, userId);
+           statement.setString(2, date);
+           
+           ResultSet rs = statement.executeQuery();
+           
+           while(rs.next())
+           {
+               Boolean status = rs.getBoolean("attending");
+               return status;
+           }
+               
+               
+               
+        }   
+        catch (SQLException ex) 
+        {        
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+   
     }
 }

@@ -5,6 +5,7 @@
  */
 package GUI.controller;
 
+import BE.Course;
 import BE.User;
 import GUI.model.Model;
 import com.jfoenix.controls.JFXButton;
@@ -15,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Formatter;
@@ -64,35 +66,28 @@ public class StudentViewController implements Initializable {
     private Model model = Model.getInstance();
 
     private String currentWeekDay;
-    private List<String> classesToday;
+    private List<Course> classesToday;
    
     
     private Date date = new Date();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
- 
-
-
-
 
     
     /**
-     * Initializes the controller class.
+     * initialises the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {
         easvLogoImage.setImage(new Image(getClass().getResourceAsStream("/res/easv.png")));
+        
         dateLbl.setText("Todays date: " + sdf.format(date));
         
-        displayTime();
-        currentStatusLbl.setText("Status:  Unattended");
         currentWeekDay = getcurrentWeekDay();
-        classesToday = model.getClassesToday(model.getCurrentUser(), currentWeekDay);
-        String allClasses = String.join(", ", classesToday);
-        currentClassesLbl.setText(allClasses);
-        System.out.println(getCurrentWeekOfYear());
-
-
+        
+        displayTime();
+        displayTodaysClasses();
+        displayCurrentAttendanceStatus();
     }    
 
     private void displayTime() 
@@ -105,7 +100,11 @@ public class StudentViewController implements Initializable {
     {
         if(checkIfValidTimePeriod())
         {
-           // model.registerPresentAttendance(model.getCurrentUser(), currentWeekDay);
+            for (Course course : classesToday) 
+            {
+                model.registerPresent(course.getId(), model.getCurrentUser().getId(), sdf.format(date), true, getCurrentWeekOfYear());
+                
+            }
         }
         else
         {
@@ -178,7 +177,48 @@ public class StudentViewController implements Initializable {
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
         return date.get(weekFields.weekOfWeekBasedYear());
     }
-    
 
-    
+    private void displayTodaysClasses() 
+    {
+        
+        classesToday = model.getClassesToday(model.getCurrentUser(), currentWeekDay);
+        if(!classesToday.isEmpty())
+        {
+            List<String> courseNames = new ArrayList();
+            for (Course course : classesToday) 
+            {
+                courseNames.add(course.getName());
+            }
+            String allCourses = String.join(", ", courseNames);
+            currentClassesLbl.setText(allCourses);
+        }
+        else
+        {
+            currentClassesLbl.setText("No classes today");
+        }
+    }
+
+    private void displayCurrentAttendanceStatus() 
+    {
+        Boolean status = model.getTodaysAttendanceStatus(model.getCurrentUser().getId(), sdf.format(date));
+        String currentStatus = null;
+        if(status != null)
+        {
+            if(status = true)
+            {
+                currentStatus = "Present";
+                currentStatusLbl.setStyle("-fx-text-fill: Green;");
+            }
+            else if(status = false)
+            {
+                currentStatus ="Absent";
+            }               
+        }
+        else
+        {
+            currentStatus = "Unattended";
+        }        
+        currentStatusLbl.setText(currentStatus);
+    }
+ 
 }

@@ -5,6 +5,7 @@
  */
 package GUI.model;
 
+import BE.Course;
 import BE.User;
 import BLL.UserManager;
 import java.util.Date;
@@ -45,11 +46,22 @@ public class Model
         currentUser = null;
     }
 
-    public List<String> getClassesToday(User currentUser, String currentDate) 
+    public List<Course> getClassesToday(User currentUser, String currentDate) 
     {
         return usermanager.getClassesToday(currentUser, currentDate);
     }
-    
+
+    public void registerPresent(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    {
+        usermanager.registerPresent(courseId, userId, date, attending, currentWeekOfYear);
+    }
+
+    public Boolean getTodaysAttendanceStatus(int userId, String date) 
+    {
+       return usermanager.getTodaysAttendanceStatus(userId, date);
+    }
+
+   
 
   
     

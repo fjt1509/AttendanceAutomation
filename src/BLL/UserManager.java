@@ -5,6 +5,7 @@
  */
 package BLL;
 
+import BE.Course;
 import BE.User;
 import DAL.UserDAO;
 import java.util.List;
@@ -22,9 +23,19 @@ public class UserManager {
         return userdao.login(username, password);
     }
 
-    public List<String> getClassesToday(User currentUser, String currentDate) 
+    public List<Course> getClassesToday(User currentUser, String currentDate) 
     {
         return userdao.getClassesToday(currentUser, currentDate);
+    }
+
+    public void registerPresent(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    {
+        userdao.registerPresent(courseId, userId, date, attending, currentWeekOfYear);
+    }
+
+    public Boolean getTodaysAttendanceStatus(int userId, String date) 
+    {
+        return userdao.getTodaysAttendanceStatus(userId, date);
     }
     
 }

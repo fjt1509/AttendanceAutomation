@@ -46,7 +46,7 @@
             </RadialGradient>
          </ripplerFill>
       </JFXButton>
-      <Label fx:id="currentStatusLbl" alignment="CENTER" layoutX="257.0" layoutY="322.0" prefHeight="44.0" prefWidth="324.0">
+      <Label fx:id="currentStatusLbl" layoutX="419.0" layoutY="322.0" prefHeight="44.0" prefWidth="145.0">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -64,12 +64,17 @@
             </RadialGradient>
          </ripplerFill>
       </JFXButton>
-      <Label alignment="CENTER" layoutX="257.0" layoutY="204.0" prefHeight="44.0" prefWidth="324.0" text="Classes Today:">
+      <Label alignment="CENTER" layoutX="257.0" layoutY="203.0" prefHeight="44.0" prefWidth="324.0" text="Classes Today:">
          <font>
             <Font name="System Bold" size="21.0" />
          </font>
       </Label>
-      <Label fx:id="currentClassesLbl" alignment="CENTER" layoutX="200.0" layoutY="241.0" prefHeight="44.0" prefWidth="439.0">
+      <Label fx:id="currentClassesLbl" alignment="CENTER" layoutX="239.0" layoutY="247.0" prefHeight="44.0" prefWidth="360.0">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="339.0" layoutY="322.0" prefHeight="44.0" prefWidth="80.0" text="Status :">
          <font>
             <Font name="System Bold" size="19.0" />
          </font>
