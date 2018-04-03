@@ -110,7 +110,7 @@ public class StudentViewController implements Initializable {
         {
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Invalid Timeperiod error");
-            alert.setHeaderText("Unable to register attendacne due to invalid time period");
+            alert.setHeaderText("Unable to register attendance due to invalid time period");
             alert.setContentText("You can only register attendance during the hours 08:15 - 16:00");
 
             alert.showAndWait();
