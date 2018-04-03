@@ -28,14 +28,18 @@ public class UserManager {
         return userdao.getClassesToday(currentUser, currentDate);
     }
 
-    public void registerPresent(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    public void registerAttendance(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
     {
-        userdao.registerPresent(courseId, userId, date, attending, currentWeekOfYear);
+        userdao.registerAttendance(courseId, userId, date, attending, currentWeekOfYear);
     }
 
     public Boolean getTodaysAttendanceStatus(int userId, String date) 
     {
         return userdao.getTodaysAttendanceStatus(userId, date);
     }
-    
+
+    public void updateAttendance(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    {
+        userdao.updateAttendance(courseId, userId, date, attending, currentWeekOfYear);    
+    }
 }

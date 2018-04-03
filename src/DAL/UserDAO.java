@@ -140,7 +140,7 @@ public class UserDAO {
         return null;
     }
 
-    public void registerPresent(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    public void registerAttendance(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
     {
         try (Connection con = dbConnector.getConnection()) 
         {
@@ -192,5 +192,27 @@ public class UserDAO {
         }
         return null;
    
+    }
+
+    public void updateAttendance(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql = "UPDATE Attendance\n" +
+                            "SET attending = ?\n" +
+                            "WHERE userId = ? AND date = ? ";
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setBoolean(1, attending);
+            statement.setInt(2, userId);
+            statement.setString(3, date);
+            
+            statement.executeUpdate();
+        }   
+        catch (SQLException ex) 
+        {        
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }        
     }
 }

@@ -63,6 +63,8 @@ public class StudentViewController implements Initializable {
     @FXML
     private Label currentClassesLbl; 
     
+    private Boolean attendanceStatus;
+    
     private Model model = Model.getInstance();
 
     private String currentWeekDay;
@@ -98,30 +100,13 @@ public class StudentViewController implements Initializable {
     @FXML
     private void presentEvent(ActionEvent event) 
     {
-        if(checkIfValidTimePeriod())
-        {
-            for (Course course : classesToday) 
-            {
-                model.registerPresent(course.getId(), model.getCurrentUser().getId(), sdf.format(date), true, getCurrentWeekOfYear());
-            }
-            displayCurrentAttendanceStatus();
-        }
-        else
-        {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Invalid Timeperiod error");
-            alert.setHeaderText("Unable to register attendacne due to invalid time period");
-            alert.setContentText("You can only register attendance during the hours 08:15 - 16:00");
-
-            alert.showAndWait();
-        }
+        registerAttendance(true);
     }
 
     @FXML
     private void absentEvent(ActionEvent event) 
     {
-        
-    
+        registerAttendance(false);
     }
     
     private boolean checkIfValidTimePeriod() 
@@ -200,16 +185,17 @@ public class StudentViewController implements Initializable {
 
     private void displayCurrentAttendanceStatus() 
     {
-        Boolean status = model.getTodaysAttendanceStatus(model.getCurrentUser().getId(), sdf.format(date));
+        attendanceStatus = model.getTodaysAttendanceStatus(model.getCurrentUser().getId(), sdf.format(date));
+        System.out.println(attendanceStatus);
         String currentStatus = null;
-        if(status != null)
+        if(attendanceStatus != null)
         {
-            if(status = true)
+            if(attendanceStatus == true)
             {
                 currentStatus = "Present";
                 currentStatusLbl.setStyle("-fx-text-fill: Green;");
             }
-            else if(status = false)
+            else if(attendanceStatus == false)
             {
                 currentStatus ="Absent";
                 currentStatusLbl.setStyle("-fx-text-fill: Red;"); 
@@ -223,5 +209,38 @@ public class StudentViewController implements Initializable {
         }        
         currentStatusLbl.setText(currentStatus);
     }
+    
+    private void registerAttendance(Boolean attending)
+    {
+        if(checkIfValidTimePeriod())
+        {
+            if(attendanceStatus == null)
+            {
+                for (Course course : classesToday) 
+                {
+                    model.registerAttendance(course.getId(), model.getCurrentUser().getId(), sdf.format(date), attending, getCurrentWeekOfYear());
+                }
+                displayCurrentAttendanceStatus();
+            }
+            else
+            {
+                for (Course course : classesToday) 
+                {
+                    model.updateAttendance(course.getId(), model.getCurrentUser().getId(), sdf.format(date), attending, getCurrentWeekOfYear());
+                }
+                displayCurrentAttendanceStatus();               
+            }
+        }
+        else
+        {
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Invalid Timeperiod error");
+            alert.setHeaderText("Unable to register attendacne due to invalid time period");
+            alert.setContentText("You can only register attendance during the hours 08:15 - 16:00");
+
+            alert.showAndWait();
+        }     
+    }
+    
  
 }

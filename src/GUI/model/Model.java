@@ -51,19 +51,20 @@ public class Model
         return usermanager.getClassesToday(currentUser, currentDate);
     }
 
-    public void registerPresent(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    public void registerAttendance(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
     {
-        usermanager.registerPresent(courseId, userId, date, attending, currentWeekOfYear);
+        usermanager.registerAttendance(courseId, userId, date, attending, currentWeekOfYear);
     }
 
-    public Boolean getTodaysAttendanceStatus(int userId, String date) 
+    public void updateAttendance(int courseId, int userId, String date, boolean attending, int currentWeekOfYear) 
+    {
+        usermanager.updateAttendance(courseId, userId, date, attending, currentWeekOfYear);
+    }
+
+     public Boolean getTodaysAttendanceStatus(int userId, String date) 
     {
        return usermanager.getTodaysAttendanceStatus(userId, date);
     }
-
-   
-
-  
-    
-    
 }
+
+
