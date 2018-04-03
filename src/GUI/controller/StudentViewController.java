@@ -103,8 +103,8 @@ public class StudentViewController implements Initializable {
             for (Course course : classesToday) 
             {
                 model.registerPresent(course.getId(), model.getCurrentUser().getId(), sdf.format(date), true, getCurrentWeekOfYear());
-                
             }
+            displayCurrentAttendanceStatus();
         }
         else
         {
@@ -212,11 +212,14 @@ public class StudentViewController implements Initializable {
             else if(status = false)
             {
                 currentStatus ="Absent";
+                currentStatusLbl.setStyle("-fx-text-fill: Red;"); 
             }               
         }
         else
         {
             currentStatus = "Unattended";
+            currentStatusLbl.setStyle("-fx-text-fill: Black;");
+
         }        
         currentStatusLbl.setText(currentStatus);
     }
