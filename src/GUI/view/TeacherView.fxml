@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="482.0" prefWidth="795.0" stylesheets="@../../res/TeacherView.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.TeacherViewController">
+<AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" stylesheets="@../../res/TeacherView.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.TeacherViewController">
    <children>
       <HBox layoutX="5.0" layoutY="8.0" prefHeight="100.0" prefWidth="790.0">
          <children>
@@ -28,8 +29,9 @@
             </AnchorPane>
          </children>
       </HBox>
-      <ListView fx:id="studentListView" layoutX="145.0" layoutY="119.0" prefHeight="315.0" prefWidth="511.0" />
-      <JFXButton fx:id="editStudentBtn" layoutX="14.0" layoutY="187.0" prefHeight="36.0" prefWidth="119.0" text="Edit attendance" />
-      <JFXComboBox fx:id="classComboBox" layoutX="14.0" layoutY="135.0" prefHeight="36.0" prefWidth="119.0" />
+      <ListView fx:id="studentListView" layoutX="14.0" layoutY="223.0" prefHeight="410.0" prefWidth="338.0" />
+      <JFXButton fx:id="editStudentBtn" layoutX="584.0" layoutY="582.0" prefHeight="36.0" prefWidth="162.0" text="Edit attendance" />
+      <JFXComboBox fx:id="classComboBox" layoutX="14.0" layoutY="135.0" prefHeight="36.0" prefWidth="162.0" />
+      <JFXTextField layoutX="14.0" layoutY="192.0" prefHeight="31.0" prefWidth="338.0" promptText="Search" />
    </children>
 </AnchorPane>
