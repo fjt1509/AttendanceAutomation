@@ -65,6 +65,13 @@ public class Model
     {
        return usermanager.getTodaysAttendanceStatus(userId, date);
     }
+
+
+    public List<String> getAllClasses()
+    {
+        return usermanager.getAllClasses();
+    }
 }
 
+   
 

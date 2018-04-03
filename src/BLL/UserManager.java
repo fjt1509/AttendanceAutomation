@@ -42,4 +42,10 @@ public class UserManager {
     {
         userdao.updateAttendance(courseId, userId, date, attending, currentWeekOfYear);    
     }
+
+    public List<String> getAllClasses()
+    {
+        return userdao.getAllClasses();
+    }
+    
 }
