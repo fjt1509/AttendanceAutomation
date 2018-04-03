@@ -5,6 +5,8 @@
  */
 package GUI.controller;
 
+import BE.User;
+import GUI.model.Model;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
@@ -50,8 +52,9 @@ public class TeacherViewController implements Initializable
     @FXML
     private Label timeLbl;
     @FXML
-    private JFXComboBox<?> classComboBox;
+    private JFXComboBox<String> classComboBox;
     
+    private Model model = Model.getInstance();
 
     /**
      * Initializes the controller class.
@@ -61,8 +64,12 @@ public class TeacherViewController implements Initializable
             
     {
       easvLogoImage.setImage(new Image(getClass().getResourceAsStream("/res/easv.png")));  
-     
-  
+      
+      classComboBox.getItems().add("All Students");
+      classComboBox.getItems().addAll(model.getAllClasses());
+      classComboBox.getSelectionModel().select("All Students");
+      
+      
  
     }    
     

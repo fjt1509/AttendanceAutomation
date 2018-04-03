@@ -193,4 +193,30 @@ public class UserDAO {
         return null;
    
     }
+
+    public List<String> getAllClasses()
+    {
+        try (Connection con = dbConnector.getConnection()) 
+        {
+            String sql ="SELECT name FROM Class";   
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            ResultSet rs = statement.executeQuery();
+            List<String> allClassNames = new ArrayList<>();  
+            
+            while(rs.next())
+            {
+                String className = rs.getString("name");
+                allClassNames.add(className);
+            }
+            return allClassNames;
+        
+        }       
+        catch (SQLException ex) 
+        {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;        
+    }
 }

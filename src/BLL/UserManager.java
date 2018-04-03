@@ -37,5 +37,10 @@ public class UserManager {
     {
         return userdao.getTodaysAttendanceStatus(userId, date);
     }
+
+    public List<String> getAllClasses()
+    {
+        return userdao.getAllClasses();
+    }
     
 }
