@@ -29,3 +29,13 @@ and open the template in the editor.
   -fx-background-radius:  50px;
     
 }
+
+.root {
+    -fx-background-color:  #e6e6e6;
+}
+
+#toolAnchorPane1 {
+    -fx-background-color:  #A52A2A;
+    -fx-background-radius: 0px 0px 40px 40px;
+ 
+}
