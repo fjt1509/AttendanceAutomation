@@ -47,5 +47,10 @@ public class UserManager {
     {
         return userdao.getAllClasses();
     }
+
+    public List<User> getAllStudents() 
+    {
+        return userdao.getAllStudents();
+    }
     
 }

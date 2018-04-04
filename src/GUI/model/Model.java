@@ -10,6 +10,8 @@ import BE.User;
 import BLL.UserManager;
 import java.util.Date;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -22,8 +24,13 @@ public class Model
     private User currentUser;
     private UserManager usermanager = new UserManager();
     
+    private ObservableList<User> listOfStudents = FXCollections.observableArrayList();
     
-    private Model(){}
+    
+    private Model()
+    {
+        listOfStudents.addAll(usermanager.getAllStudents());
+    }
     
     public static Model getInstance()
     {
@@ -70,6 +77,11 @@ public class Model
     public List<String> getAllClasses()
     {
         return usermanager.getAllClasses();
+    }
+    
+    public ObservableList<User> getAllStudents()
+    {
+        return listOfStudents;
     }
 }
 
