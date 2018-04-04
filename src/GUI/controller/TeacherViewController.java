@@ -30,6 +30,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import static sun.net.www.http.HttpClient.New;
@@ -70,6 +71,7 @@ public class TeacherViewController implements Initializable
     @FXML
     private TableColumn<User, Integer> studentAbsenceColumn;
 
+    @FXML
     private JFXTextField searchTxtField;
 
     /**
@@ -94,37 +96,32 @@ public class TeacherViewController implements Initializable
  
     }    
 
+
     @FXML
-    private void searchEvent(ActionEvent event)
+    
+     private void searchEvent(KeyEvent event) 
     {
-        /*
-     FilteredList filter = new FilteredList(studentListView.getItems(), e -> true);
-        searchTxtField.textProperty().addListener((observable, oldValue, newValue) -> 
-        {
+        FilteredList filter = new FilteredList(studentTableView.getItems(), e -> true);
+        searchTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
 
             filter.setPredicate((Predicate<? super User>) (User user) -> {
 
-                if (newValue.isEmpty() || newValue == null) 
-                {
+                if (newValue.isEmpty() || newValue == null) {
                     return true;
-                } else if (user.getFname().toLowerCase().contains(newValue.toLowerCase())) {
+                } else if (user.getFname().toLowerCase().contains(newValue.toLowerCase()))  {
                     return true;
-                } else
-                {
-                    return false;
+                    
                 }
-                
 
-                
+                return false;
             });
             SortedList sort = new SortedList(filter);
-            sort.comparatorProperty().bind(studentListView.comparatorProperty());
+            sort.comparatorProperty().bind(studentTableView.comparatorProperty());
 
-            studentListView.setItems(sort);   
-        }*/
+            studentTableView.setItems(sort);
+        });
+
     }
         
 }
-           
-    
-
+          
