@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -277,5 +278,34 @@ public class UserDAO {
         }    
         return null;
         
+    }
+
+    public HashMap<String, Boolean> getStudentAttendance(int id) 
+    {
+        try (Connection con = dbConnector.getConnection())
+        {
+            String sql ="SELECT date, attending FROM Attendance WHERE userId = ?";
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, id);
+            
+            ResultSet rs = statement.executeQuery();
+            HashMap<String, Boolean> studentAttandance = new HashMap();
+            
+            while(rs.next())
+            {
+                String date = rs.getString("date");
+                Boolean attending = rs.getBoolean("attending");
+                studentAttandance.put(date, attending);
+            }
+            return studentAttandance;
+        }   
+        catch (SQLException ex) 
+        {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);    
+        }
+        return null;
+                
     }
 }

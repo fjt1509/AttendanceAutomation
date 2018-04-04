@@ -9,6 +9,7 @@ import BE.Course;
 import BE.User;
 import BLL.UserManager;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,6 +83,11 @@ public class Model
     public ObservableList<User> getAllStudents()
     {
         return listOfStudents;
+    }
+
+    public HashMap<String, Boolean> getStudentAttendance(int id) 
+    {
+        return usermanager.getStudentAttendance(id);
     }
 }
 

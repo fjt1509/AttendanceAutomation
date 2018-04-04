@@ -12,15 +12,21 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
@@ -45,6 +51,7 @@ public class TeacherViewController implements Initializable
 
     private String attendanceAxis;
     private String daysAxis;
+    private int present;
     
     
     @FXML
@@ -73,6 +80,10 @@ public class TeacherViewController implements Initializable
 
     @FXML
     private JFXTextField searchTxtField;
+    @FXML
+    private AnchorPane backgroundPane;
+    @FXML
+    private PieChart absencePieChart;
 
     /**
      * Initializes the controller class.
@@ -81,7 +92,8 @@ public class TeacherViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
             
     {
-      easvLogoImage.setImage(new Image(getClass().getResourceAsStream("/res/easv.png")));  
+      easvLogoImage.setImage(new Image(getClass().getResourceAsStream("/res/easv.png"))); 
+      
       
       classComboBox.getItems().add("All Students");
       classComboBox.getItems().addAll(model.getAllClasses());
@@ -89,28 +101,28 @@ public class TeacherViewController implements Initializable
       
       
       studentTableView.getItems().addAll(model.getAllStudents());
-      studentNameColumn.setCellValueFactory(new PropertyValueFactory(""));
+      studentNameColumn.setCellValueFactory(new PropertyValueFactory("fullName"));
       
-     
-     
- 
+      tableViewEventHandler();
+      
+      
     }    
 
 
-    @FXML
-    
+    @FXML 
      private void searchEvent(KeyEvent event) 
     {
         FilteredList filter = new FilteredList(studentTableView.getItems(), e -> true);
         searchTxtField.textProperty().addListener((observable, oldValue, newValue) -> {
 
-            filter.setPredicate((Predicate<? super User>) (User user) -> {
-
-                if (newValue.isEmpty() || newValue == null) {
+            filter.setPredicate((Predicate<? super User>) (User user) -> 
+            {
+                if (newValue.isEmpty() || newValue == null) 
+                {
                     return true;
-                } else if (user.getFname().toLowerCase().contains(newValue.toLowerCase()))  {
-                    return true;
-                    
+                } else if (user.getFullName().toLowerCase().contains(newValue.toLowerCase()))
+                {
+                    return true;    
                 }
 
                 return false;
@@ -122,6 +134,70 @@ public class TeacherViewController implements Initializable
         });
 
     }
+
+    private void tableViewEventHandler() 
+    {
+        studentTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<User>() 
+        {
+            @Override
+            public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) 
+            {
+                User selectedUser = studentTableView.getSelectionModel().getSelectedItem();
+                
+                System.out.println(selectedUser.getFullName());
+                
+                HashMap<String, Boolean> studentAttendance = model.getStudentAttendance(selectedUser.getId());
+                
+                int hundredpercent = studentAttendance.size();
+                present = 0;
+                
+                studentAttendance.forEach((date, attending) ->
+                {
+                    if(attending == true)
+                    {
+                        present++;
+                    }
+                });
+                
+                int absent = hundredpercent - present;
+                System.out.println("Present days: " + present + " out of " + hundredpercent);
+                System.out.println("Absent days: " + absent);
+                
+                initializePieChart(present, absent);
+        
+                
+            }
+        });
+    }
+    
+        private void initializePieChart(int presence, int absence) 
+    {
+        ObservableList<PieChart.Data> pieChartData =
+        FXCollections.observableArrayList(
+        new PieChart.Data("Absence " + absence + "%", absence),
+        new PieChart.Data("Presence " + presence + "%", presence));
+        absencePieChart.setData(pieChartData);
+       
+        
+        applyCustomColorSequence(
+            pieChartData, 
+            "red", 
+            "green"
+            );
+    }
+    
+    private void applyCustomColorSequence(ObservableList<PieChart.Data> pieChartData, String... pieColors) 
+    {
+        int i = 0;
+        for (PieChart.Data data : pieChartData) 
+        {
+            data.getNode().setStyle("-fx-pie-color: " + pieColors[i % pieColors.length] + ";");
+            i++;
+        }
+        
+    }
+
+    
         
 }
           

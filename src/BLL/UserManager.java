@@ -8,6 +8,7 @@ package BLL;
 import BE.Course;
 import BE.User;
 import DAL.UserDAO;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -51,6 +52,11 @@ public class UserManager {
     public List<User> getAllStudents() 
     {
         return userdao.getAllStudents();
+    }
+
+    public HashMap<String, Boolean> getStudentAttendance(int id) 
+    {
+        return userdao.getStudentAttendance(id);
     }
     
 }

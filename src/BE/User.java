@@ -19,6 +19,9 @@ public class User implements Serializable
     private String lname;
     private String email;
     private final List<String> roles;
+    private String fullName;
+
+
     
     
     public User (int id, String fname, String lname, String email, List<String> roles)
@@ -28,6 +31,7 @@ public class User implements Serializable
         this.lname = lname;
         this.email = email;
         this.roles = roles;
+        this.fullName = fname + " " + lname;
                 
     }
 
@@ -50,7 +54,11 @@ public class User implements Serializable
     public List<String> getRoles() {
         return roles;
     }
-
+    
+    public String getFullName() {
+        return fullName;
+    }
+    
     public void setFname(String fname) {
         this.fname = fname;
     }
