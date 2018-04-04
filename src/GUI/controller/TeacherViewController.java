@@ -9,10 +9,15 @@ import BE.User;
 import GUI.model.Model;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
@@ -65,6 +70,8 @@ public class TeacherViewController implements Initializable
     @FXML
     private TableColumn<User, Integer> studentAbsenceColumn;
 
+    private JFXTextField searchTxtField;
+
     /**
      * Initializes the controller class.
      */
@@ -86,5 +93,38 @@ public class TeacherViewController implements Initializable
      
  
     }    
-    
+
+    @FXML
+    private void searchEvent(ActionEvent event)
+    {
+        /*
+     FilteredList filter = new FilteredList(studentListView.getItems(), e -> true);
+        searchTxtField.textProperty().addListener((observable, oldValue, newValue) -> 
+        {
+
+            filter.setPredicate((Predicate<? super User>) (User user) -> {
+
+                if (newValue.isEmpty() || newValue == null) 
+                {
+                    return true;
+                } else if (user.getFname().toLowerCase().contains(newValue.toLowerCase())) {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+                
+
+                
+            });
+            SortedList sort = new SortedList(filter);
+            sort.comparatorProperty().bind(studentListView.comparatorProperty());
+
+            studentListView.setItems(sort);   
+        }*/
+    }
+        
 }
+           
+    
+
