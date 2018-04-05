@@ -53,8 +53,6 @@ public class StudentViewController implements Initializable {
     @FXML
     private FontAwesomeIconView absenceIcon;    
     @FXML
-    private Label timeLbl;
-    @FXML
     private Label currentStatusLbl; 
      @FXML
     private JFXButton presentBtn;
@@ -73,6 +71,8 @@ public class StudentViewController implements Initializable {
     
     private Date date = new Date();
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    @FXML
+    private AnchorPane infoDisplayPane;
 
     
     /**

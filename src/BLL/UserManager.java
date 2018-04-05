@@ -58,5 +58,10 @@ public class UserManager {
     {
         return userdao.getStudentAttendance(id);
     }
+
+    public List<User> getStudentsForClass(String className) 
+    {
+        return userdao.getStudentsForClass(className);
+    }
     
 }

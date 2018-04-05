@@ -29,3 +29,8 @@
     -fx-border-radius: 50px;
     -fx-background-radius:  50px;
 }
+
+#infoDisplayPane{
+    -fx-background-color:  white;
+    -fx-background-radius: 0px 0px 40px 40px;   
+}

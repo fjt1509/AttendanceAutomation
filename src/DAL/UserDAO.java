@@ -308,4 +308,45 @@ public class UserDAO {
         return null;
                 
     }
+
+    public List<User> getStudentsForClass(String className) 
+    {
+        try(Connection con = dbConnector.getConnection())
+        {
+            String sql = "SELECT u.id, u.fname, u.lname, u.email\n" +
+                         "FROM Users u JOIN UserRole ur on u.id = ur.userId\n" +
+                         "		JOIN Roles r on ur.roleId = r.id\n" +
+                         "               JOIN ClassUser cu on u.id = cu.userId\n" +
+                         "		  JOIN Class c on cu.classId = c.id\n" +
+                         "WHERE c.name = ?  AND r.position = 'Student'";
+            
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setString(1, className);
+            
+            ResultSet rs = statement.executeQuery();
+            List<User> listOfStudents = new ArrayList();
+            
+            while(rs.next())
+            {
+                int id = rs.getInt("id");
+                String fname = rs.getString("fname");
+                String lname = rs.getString("lname");
+                String email = rs.getString("email");
+                List<String> roles = getUserRoles(id);
+                
+                User u = new User(id, fname, lname, email, roles);
+                
+                listOfStudents.add(u);
+            }
+            return listOfStudents;
+            
+        }   
+        catch (SQLException ex) 
+        {
+                Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return null;
+    }
 }

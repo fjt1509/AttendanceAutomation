@@ -4,23 +4,32 @@
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="650.0" prefWidth="900.0" stylesheets="@../../res/TeacherView.css" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.TeacherViewController">
    <children>
       <AnchorPane fx:id="backgroundPane" layoutX="57.0" layoutY="-7.0" prefHeight="677.0" prefWidth="785.0" style="-fx-border-color: Black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="57.0" AnchorPane.rightAnchor="58.0">
          <children>
-            <AnchorPane layoutX="393.0" layoutY="114.0" prefHeight="553.0" prefWidth="338.0">
+            <AnchorPane fx:id="detailsPane" layoutX="393.0" layoutY="114.0" prefHeight="553.0" prefWidth="338.0">
                <children>
-                  <JFXButton fx:id="editStudentBtn" layoutX="88.0" layoutY="481.0" prefHeight="36.0" prefWidth="162.0" text="Edit attendance" />
-                  <PieChart fx:id="absencePieChart" layoutX="9.0" layoutY="14.0" prefHeight="273.0" prefWidth="338.0" />
+                  <JFXButton fx:id="editStudentBtn" layoutX="116.0" layoutY="478.0" prefHeight="36.0" prefWidth="162.0" text="Edit attendance" />
+                  <PieChart fx:id="absencePieChart" layoutX="28.0" layoutY="14.0" prefHeight="273.0" prefWidth="338.0" style="-fx-start-angle: 90;" />
+                  <BarChart layoutX="-10.0" layoutY="244.0" prefHeight="234.0" prefWidth="376.0">
+                    <xAxis>
+                      <CategoryAxis side="BOTTOM" />
+                    </xAxis>
+                    <yAxis>
+                      <NumberAxis side="LEFT" />
+                    </yAxis>
+                  </BarChart>
                </children>
             </AnchorPane>
          </children></AnchorPane>
@@ -30,12 +39,6 @@
                <children>
                   <ImageView fx:id="easvLogoImage" fitHeight="102.0" fitWidth="102.0" layoutX="344.0" pickOnBounds="true" preserveRatio="true" />
                   <FontAwesomeIconView fx:id="userIcon" glyphName="USER" layoutX="41.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
-                  <FontAwesomeIconView fx:id="absenceIcon" glyphName="BAR_CHART" layoutX="91.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
-                  <Label fx:id="timeLbl" layoutX="682.0" layoutY="24.0" prefHeight="51.0" prefWidth="80.0" text="6:40">
-                     <font>
-                        <Font size="37.0" />
-                     </font>
-                  </Label>
                </children>
             </AnchorPane>
          </children>

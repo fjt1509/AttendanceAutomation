@@ -114,7 +114,9 @@ public class LoginViewController implements Initializable {
             Stage stage = new Stage();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(style);
+            stage.setResizable(false);
             stage.setScene(scene);
+            
                     
             stage.show();
         } catch (IOException ex) {

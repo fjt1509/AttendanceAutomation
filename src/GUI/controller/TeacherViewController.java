@@ -39,7 +39,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import static sun.net.www.http.HttpClient.New;
 
 /**
  * FXML Controller class
@@ -51,7 +50,7 @@ public class TeacherViewController implements Initializable
 
     private String attendanceAxis;
     private String daysAxis;
-    private int present;
+    private double present;
     
     
     @FXML
@@ -63,10 +62,6 @@ public class TeacherViewController implements Initializable
     private ImageView easvLogoImage;
     @FXML
     private FontAwesomeIconView userIcon;
-    @FXML
-    private FontAwesomeIconView absenceIcon;
-    @FXML
-    private Label timeLbl;
     @FXML
     private JFXComboBox<String> classComboBox;
     
@@ -84,6 +79,8 @@ public class TeacherViewController implements Initializable
     private AnchorPane backgroundPane;
     @FXML
     private PieChart absencePieChart;
+    @FXML
+    private AnchorPane detailsPane;
 
     /**
      * Initializes the controller class.
@@ -98,13 +95,17 @@ public class TeacherViewController implements Initializable
       classComboBox.getItems().add("All Students");
       classComboBox.getItems().addAll(model.getAllClasses());
       classComboBox.getSelectionModel().select("All Students");
+      comboBoxEventHandler();
       
       
       studentTableView.getItems().addAll(model.getAllStudents());
       studentNameColumn.setCellValueFactory(new PropertyValueFactory("fullName"));
-      
+      studentAbsenceColumn.setCellValueFactory(new PropertyValueFactory("id"));
+      studentAbsenceColumn.setSortType(TableColumn.SortType.DESCENDING);
+      studentTableView.getSortOrder().add(studentAbsenceColumn);
       tableViewEventHandler();
       
+      detailsPane.setVisible(false);
       
     }    
 
@@ -143,14 +144,18 @@ public class TeacherViewController implements Initializable
             public void changed(ObservableValue<? extends User> observable, User oldValue, User newValue) 
             {
                 User selectedUser = studentTableView.getSelectionModel().getSelectedItem();
-                
+                if(selectedUser != null)
+                {
+                    detailsPane.setVisible(true);
                 System.out.println(selectedUser.getFullName());
+                    
+                
                 
                 HashMap<String, Boolean> studentAttendance = model.getStudentAttendance(selectedUser.getId());
                 
-                int hundredpercent = studentAttendance.size();
-                present = 0;
                 
+                present = 0;
+
                 studentAttendance.forEach((date, attending) ->
                 {
                     if(attending == true)
@@ -158,25 +163,32 @@ public class TeacherViewController implements Initializable
                         present++;
                     }
                 });
+                double hundredpercent = studentAttendance.size();
+                double absent = hundredpercent - present;
+                double absentPercent = (absent/hundredpercent)*100;
+                double presentPercent = (present/hundredpercent)*100;
                 
-                int absent = hundredpercent - present;
+                    System.out.println(presentPercent);
+                    System.out.println(absentPercent);
+                
                 System.out.println("Present days: " + present + " out of " + hundredpercent);
                 System.out.println("Absent days: " + absent);
                 
-                initializePieChart(present, absent);
+                initializePieChart(presentPercent, absentPercent);
         
-                
+                }   
             }
         });
     }
     
-        private void initializePieChart(int presence, int absence) 
+    private void initializePieChart(double presence, double absence) 
     {
         ObservableList<PieChart.Data> pieChartData =
         FXCollections.observableArrayList(
         new PieChart.Data("Absence " + absence + "%", absence),
         new PieChart.Data("Presence " + presence + "%", presence));
         absencePieChart.setData(pieChartData);
+        absencePieChart.setLegendVisible(false);
        
         
         applyCustomColorSequence(
@@ -195,6 +207,33 @@ public class TeacherViewController implements Initializable
             i++;
         }
         
+    }
+
+    private void comboBoxEventHandler() {
+        classComboBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() 
+        {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) 
+            {
+                String selectedItem = classComboBox.getSelectionModel().getSelectedItem();
+                searchTxtField.clear();
+                studentTableView.getSelectionModel().clearSelection();
+                detailsPane.setVisible(false);
+                
+                if(selectedItem.equals("All Students"))
+                {
+                    studentTableView.getItems().setAll(model.getAllStudents());
+                                     
+                }
+                else
+                {
+                   
+                   studentTableView.getItems().setAll(model.getStudentsForClass(selectedItem));
+                }
+                    
+                
+            }
+        });
     }
 
     

@@ -82,12 +82,20 @@ public class Model
     
     public ObservableList<User> getAllStudents()
     {
+  
+        listOfStudents.setAll(usermanager.getAllStudents());
         return listOfStudents;
     }
 
     public HashMap<String, Boolean> getStudentAttendance(int id) 
     {
         return usermanager.getStudentAttendance(id);
+    }
+
+    public List<User> getStudentsForClass(String className) 
+    {
+        listOfStudents.setAll(usermanager.getStudentsForClass(className));
+        return listOfStudents;
     }
 }
 

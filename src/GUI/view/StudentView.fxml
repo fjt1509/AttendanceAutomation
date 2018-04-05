@@ -12,6 +12,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="570.0" prefWidth="838.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.controller.StudentViewController">
    <children>
+      <AnchorPane fx:id="infoDisplayPane" layoutX="221.0" prefHeight="513.0" prefWidth="397.0" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="838.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <AnchorPane fx:id="toolAnchorPane" prefHeight="100.0" prefWidth="790.0">
@@ -19,11 +20,6 @@
                   <ImageView fx:id="easvLogoImage" fitHeight="102.0" fitWidth="102.0" layoutX="344.0" pickOnBounds="true" preserveRatio="true" />
                   <FontAwesomeIconView fx:id="userIcon" glyphName="USER" layoutX="41.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
                   <FontAwesomeIconView fx:id="absenceIcon" glyphName="BAR_CHART" layoutX="91.0" layoutY="63.0" size="35" wrappingWidth="16.0" />
-                  <Label fx:id="timeLbl" layoutX="682.0" layoutY="24.0" prefHeight="51.0" prefWidth="80.0" text="6:40">
-                     <font>
-                        <Font size="37.0" />
-                     </font>
-                  </Label>
                </children>
             </AnchorPane>
          </children>
